@@ -30,20 +30,20 @@ jobs:
       # 4️⃣ Install frontend dependencies
       - name: Install Frontend
         run: |
-          cd frontend
+          cd frontend/myapp
           npm install
 
       # 5️⃣ Build frontend
       - name: Build Frontend
         run: |
-          cd frontend
+          cd frontend/myapp
           npm run build
 
       # 6️⃣ Deploy frontend to Vercel
       - name: Deploy Frontend
         run: |
           npm install -g vercel
-          cd frontend
+          cd frontend/myapp
           vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
 
       # 7️⃣ Deploy backend to Render
