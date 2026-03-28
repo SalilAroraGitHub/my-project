@@ -15,11 +15,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2️⃣ Setup Node.js
+      # 2️⃣ Setup Node.js (updated to 20 for Vercel compatibility)
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
 
       # 3️⃣ Install backend dependencies
       - name: Install Backend
@@ -44,7 +44,7 @@ jobs:
         run: |
           npm install -g vercel
           cd frontend/myapp
-          vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
+          vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
 
       # 7️⃣ Deploy backend to Render
       - name: Deploy Backend
