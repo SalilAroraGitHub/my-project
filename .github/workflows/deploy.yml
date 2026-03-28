@@ -1,0 +1,52 @@
+name: Full CI/CD
+
+# Trigger workflow on push to main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2️⃣ Setup Node.js
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # 3️⃣ Install backend dependencies
+      - name: Install Backend
+        run: |
+          cd backend
+          npm install
+
+      # 4️⃣ Install frontend dependencies
+      - name: Install Frontend
+        run: |
+          cd frontend
+          npm install
+
+      # 5️⃣ Build frontend
+      - name: Build Frontend
+        run: |
+          cd frontend
+          npm run build
+
+      # 6️⃣ Deploy frontend to Vercel
+      - name: Deploy Frontend
+        run: |
+          npm install -g vercel
+          cd frontend
+          vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      # 7️⃣ Deploy backend to Render
+      - name: Deploy Backend
+        run: |
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
