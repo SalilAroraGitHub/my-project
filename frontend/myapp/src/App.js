@@ -12,6 +12,7 @@ function App() {
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h1>CI/CD Test App 🚀done </h1>
+      <h1>Salil Arora</h1>
       <h2>{data}</h2>
     </div>
   );
